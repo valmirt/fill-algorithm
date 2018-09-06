@@ -63,8 +63,20 @@ class Polygon {
      int p = points.length;
      
      for(int i = 0; i < p; i++) {
-       linhaDDA(lines[i][0], lines[i][1], lines[i][2], lines[i][3], colorBorder[0], colorBorder[1], colorBorder[2]);
+       linhaDDA(lines[i][0], 
+                lines[i][1], 
+                lines[i][2], 
+                lines[i][3], 
+                colorBorder[0], 
+                colorBorder[1], 
+                colorBorder[2]);
      }
+     
+     if (this.fill) customFill();
+  }
+  
+  private void customFill(){
+    //Implementar o algoritmo de preenchimento aqui;
   }
   
   private void linhaDDA(int xi, int yi, int xf, int yf, int r, int g, int b) {
