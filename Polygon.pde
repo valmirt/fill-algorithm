@@ -3,7 +3,7 @@
   *
   * Valmir Torres de Jesus Junior
   * Atividade individual 3
-  * 06/09/2018
+  * 10/09/2018
 **/
 
 class Polygon {
@@ -12,8 +12,7 @@ class Polygon {
   private int[] colorBorder;
   private int[] colorInside;
   private boolean fill;
-  
-  Polygon(){}
+  private TableP[] sides;
   
   Polygon(int[][] points, int[][] lines, int[] colorBorder, int[]colorInside, boolean fill){
     this.points = points;
@@ -27,32 +26,16 @@ class Polygon {
     return this.points;
   }
   
-  void setPoints(int[][] points){
-    this.points = points;
-  }
-  
   int[][] getLines(){
     return this.lines;
-  }
-  
-  void setLines(int[][] lines){
-    this.lines = lines;
   }
   
   int[] getColorBorder(){
     return this.colorBorder;
   }
   
-  void setColorBorder(int[] colorBorder){
-    this.colorBorder = colorBorder;
-  }
-  
   int[] getColorInside(){
     return this.colorInside;
-  }
-  
-  void setColorInside(int[] colorInside){
-    this.colorInside = colorInside;
   }
   
   boolean isFill(){
@@ -76,7 +59,15 @@ class Polygon {
   }
   
   private void customFill(){
-    //Implementar o algoritmo de preenchimento aqui;
+    calculateTable();
+    int p = points.length;
+    for(int yVarredura = 0; yVarredura < SCREEN_WIDTH; yVarredura++) {
+      for(int i = 0; i < p; i++) {
+        if((yVarredura < sides[i].yMax) && (yVarredura > sides[i].yMin)){
+          
+        }
+      }
+    } 
   }
   
   private void linhaDDA(int xi, int yi, int xf, int yf, int r, int g, int b) {
@@ -96,6 +87,28 @@ class Polygon {
       y += incY;
       
       point((int) x, (int) y);
+    }
+  }
+  
+  private void calculateTable() {
+    int p = points.length;
+    sides = new TableP[p];
+    int yMin, yMax, xTy;
+    float coef;
+    
+    for (int i = 0; i < p; i++){
+      if (lines[i][1] < lines[i][3]) {
+        yMin = lines[i][1]; 
+        yMax = lines[i][3];
+        xTy = lines[i][0];
+      } else { 
+        yMin = lines[i][3]; 
+        yMax = lines[i][1];
+        xTy = lines[i][2];
+      }
+ 
+      coef = (lines[i][0]-lines[i][2])/(lines[i][1]-lines[i][3]);     
+      sides[i] = new TableP(i+1, yMin, yMax, xTy, coef);
     }
   }
 }

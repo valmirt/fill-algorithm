@@ -34,8 +34,8 @@ void keyPressed(){
     if(key == '2'){
       background(0);
       showMenu();
-//      createRandomPolygon(true);
-//      polygon.drawPolygon();
+      //createRandomPolygon(true);
+      //polygon.drawPolygon();
       textSize(16);
       text("Sorry, I have not implemented this yet.", 10, 120);
     }
@@ -68,7 +68,7 @@ void createRandomPolygon(boolean fill){
       lines[i][2] = points[i+1][0];
       lines[i][3] = points[i+1][1];
     }
-  }
+  }                                                                                                                                                                                             
   
   int[] colorBorder = {
     randomGen(1, 256), 
