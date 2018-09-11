@@ -3,7 +3,7 @@
   *
   * Valmir Torres de Jesus Junior
   * Atividade individual 3
-  * 06/09/2018
+  * 11/09/2018
 **/
 
 int SCREEN_WIDTH = 800;
@@ -34,10 +34,8 @@ void keyPressed(){
     if(key == '2'){
       background(0);
       showMenu();
-      //createRandomPolygon(true);
-      //polygon.drawPolygon();
-      textSize(16);
-      text("Sorry, I have not implemented this yet.", 10, 120);
+      createRandomPolygon(true);
+      polygon.drawPolygon();
     }
 }
 

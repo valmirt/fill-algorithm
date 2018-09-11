@@ -3,7 +3,7 @@
   *
   * Valmir Torres de Jesus Junior
   * Atividade individual 3
-  * 10/09/2018
+  * 11/09/2018
 **/
 
 class Polygon {
@@ -61,12 +61,45 @@ class Polygon {
   private void customFill(){
     calculateTable();
     int p = points.length;
+    FloatList aux = new FloatList();
+    
     for(int yVarredura = 0; yVarredura < SCREEN_WIDTH; yVarredura++) {
       for(int i = 0; i < p; i++) {
-        if((yVarredura < sides[i].yMax) && (yVarredura > sides[i].yMin)){
-          
+        if((yVarredura <= sides[i].yMax) && (yVarredura >= sides[i].yMin)){
+          if(sides[i].yMin != sides[i].yMax){
+            float temp = sides[i].coef * (yVarredura - sides[i].yMin) + sides[i].xTy;
+            aux.append(temp);  //<>//
+          }
         }
       }
+      
+      if(aux.size() > 0 && aux.size() % 2 != 0) {
+        aux.sort();
+        
+        for(int i = 0; i < aux.size(); i++) {
+          for(int j = i + 1; j < aux.size(); j++){
+            if(round(aux.get(i)) == round(aux.get(j))){
+              aux.remove(i);
+              break;
+            }
+          }
+        }
+      }
+      
+      if (aux.size() > 0 && aux.size() % 2 == 0){
+        aux.sort();
+        
+        for (int i = 0; i < aux.size(); i = i + 2)
+          linhaDDA((int) aux.get(i)+1, 
+                   yVarredura, 
+                   (int) aux.get(i+1)-1,
+                   yVarredura, 
+                   colorInside[0],
+                   colorInside[1],
+                   colorInside[2]);
+                  
+      }
+      aux.clear();
     } 
   }
   
@@ -97,17 +130,17 @@ class Polygon {
     float coef;
     
     for (int i = 0; i < p; i++){
-      if (lines[i][1] < lines[i][3]) {
+      if (lines[i][1] <= lines[i][3]) {
         yMin = lines[i][1]; 
         yMax = lines[i][3];
         xTy = lines[i][0];
-      } else { 
+      } else {
         yMin = lines[i][3]; 
         yMax = lines[i][1];
         xTy = lines[i][2];
       }
- 
-      coef = (lines[i][0]-lines[i][2])/(lines[i][1]-lines[i][3]);     
+      if ((float)lines[i][1] - lines[i][3] == 0) coef = 0;
+      else coef = ((float)(lines[i][0]-lines[i][2])/(float)(lines[i][1]-lines[i][3]));     
       sides[i] = new TableP(i+1, yMin, yMax, xTy, coef);
     }
   }
